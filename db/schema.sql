@@ -12,3 +12,11 @@ CREATE TABLE department_list (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     dept_name VARCHAR(30) NOT NULL
 );
+-- Create a table to store role information
+CREATE TABLE role_list (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(30) UNIQUE NOT NULL,
+    salary DECIMAL UNSIGNED NOT NULL,
+    department_list_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (department_list_id) REFERENCES department_list(id) ON DELETE CASCADE
+);
