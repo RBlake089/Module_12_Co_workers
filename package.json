@@ -1,0 +1,27 @@
+{
+  "name": "module_12_co_workers",
+  "version": "1.0.0",
+  "description": "![License](https://img.shields.io/badge/license-None-blue.svg)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RBlake089/Module_12_Co_workers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RBlake089/Module_12_Co_workers/issues"
+  },
+  "homepage": "https://github.com/RBlake089/Module_12_Co_workers#readme",
+  "dependencies": {
+    "cfonts": "^3.2.0",
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql2": "^3.1.0"
+  }
+}
