@@ -174,6 +174,72 @@ function addADepartment() {
   });
 }
 
+// Function to add a role to the database
+function addARole() {
+  // Use db.query() to select all rows from the 'department_list' table
+  db.query("SELECT * FROM department_list", function(err, results) {
+      // Check if there was an error while executing the query
+      if (err) {
+          console.log(err); // If there's an error, log it to the console
+          return workTime(); // Exit the function and return to the main menu using the workTime() function
+      }
+
+      // If successful, create an array of department choices to use in the inquirer prompt
+      const departmentChoices = results.map(department => ({
+          value: department.id,
+          name: department.dept_name
+      }));
+
+      // Use inquirer to prompt the user to enter role details
+      inquirer.prompt([
+          {
+              type: "input",
+              name: "addARole",
+              message: "Enter a role."
+          },
+          {
+              type: "input",
+              name: "salary",
+              message: "How much is the salary for this role?"
+          },
+          {
+              type: "list",
+              name: "deptId",
+              message: "Which department does this role belong to?",
+              choices: departmentChoices // Use the department choices generated from the query results
+          }
+      ]).then((inquirerResponse) => {
+          // After the user enters role details, log the input to the console
+          console.log("Role added:  " + inquirerResponse.addARole);
+
+          // Extract the department ID, role name, and role salary from the inquirer response
+          let departmentId = inquirerResponse.deptId;
+          let roleName = inquirerResponse.addARole;
+          let roleSalary = inquirerResponse.salary;
+
+          // Use db.query() to insert the role details into the 'role_list' table
+          db.query(`INSERT INTO 
+                    role_list
+                    (title, salary, department_list_id) 
+                    VALUES 
+                    ('${roleName}', 
+                    '${roleSalary}',
+                    '${departmentId}')`, function(err, results) {
+              // Check if there was an error while executing the query
+              if (err) {
+                  console.log(err); // If there's an error, log it to the console
+              } else {
+                  // If successful, view all roles using the viewAllRoles() function
+                  viewAllRoles();
+              }
+              // After inserting the role (whether successful or not), call the startApp() function to continue the application flow
+              startApp();
+          });
+      });
+  });
+}
+
+
 
 
 
