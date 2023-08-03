@@ -125,5 +125,21 @@ function viewAllDepartments(){
   });
 }
 
+// Function to view all roles from the database
+function viewAllRoles(){
+  // Use the db.query() method to execute a SQL query to select all rows from the 'role_list' table
+  db.query("SELECT * FROM role_list", function(err, results) {
+      // Check if there was an error while executing the query
+      if (err) {
+          console.log(err); // If there's an error, log it to the console
+      } else {
+          console.table(results); // If successful, display the results in a tabular format using console.table
+      }
+      // After displaying the results (whether successful or not), call the startApp() function to continue the application flow
+      startApp();
+  });
+}
+
+
 
 startApp()
