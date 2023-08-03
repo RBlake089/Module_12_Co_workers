@@ -140,6 +140,41 @@ function viewAllRoles(){
   });
 }
 
+// Function to add a department to the database
+function addADepartment() {
+  // Use inquirer to prompt the user to enter a department name
+  inquirer.prompt([
+      {
+          type: "input",
+          name: "addADepartment",
+          message: "Enter a department name."
+      }
+  ]).then((inquirerResponse) => {
+      // After the user enters the department name, log it to the console
+      console.log("Department added:  " + inquirerResponse.addADepartment);
+
+      // Extract the department name from the inquirer response
+      let departmentName = inquirerResponse.addADepartment;
+
+      // Use db.query() to insert the department name into the 'department_list' table
+      db.query(`INSERT INTO
+              department_list 
+              (dept_name) VALUES 
+              ('${departmentName}')`, function(err, results){
+          // Check if there was an error while executing the query
+          if (err) {
+              console.log(err); // If there's an error, log it to the console
+          } else {
+              // If successful, view all departments using the viewAllDepartments() function
+              viewAllDepartments();
+          }
+          // After inserting the department (whether successful or not), call the startApp() function to continue the application flow
+          startApp();
+      });
+  });
+}
+
+
 
 
 startApp()
