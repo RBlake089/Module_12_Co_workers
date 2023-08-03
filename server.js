@@ -238,6 +238,110 @@ function addARole() {
       });
   });
 }
+// Function to add an employee to the database
+function addAEmployee() {
+  // Use db.query() to select all rows from the 'role_list' table
+  db.query("SELECT * FROM role_list", function (err, results) {
+      // Check if there was an error while executing the query
+      if (err) {
+          console.log(err); // If there's an error, log it to the console
+          return workTime(); // Exit the function and return to the main menu using the workTime() function
+      }
+
+      // If successful, create an array of role choices to use in the inquirer prompt
+      const roleChoices = results.map(role => ({
+          value: role.id,
+          name: role.title
+      }));
+
+      // Use inquirer to prompt the user to enter employee details
+      inquirer.prompt([
+          {
+              type: "input",
+              name: "firstName",
+              message: "Enter an employee name."
+          },
+          {
+              type: "input",
+              name: "lastName",
+              message: "Enter an employee last name."
+          },
+          {
+              type: "list",
+              name: "roleId",
+              message: "Which role are we adding this employee to?",
+              choices: roleChoices // Use the role choices generated from the query results
+          }
+      ]).then((inquirerResponse) => {
+          // After the user enters employee details, log the input to the console
+          console.log("Employee added: " + inquirerResponse.firstName + " " + inquirerResponse.lastName);
+
+          // Extract the role ID, employee first name, and employee last name from the inquirer response
+          let roleId = inquirerResponse.roleId;
+          let empName = inquirerResponse.firstName;
+          let empLast = inquirerResponse.lastName;
+
+          // Use db.query() to insert the employee details into the 'employee_list' table
+          db.query(`INSERT INTO employee_list 
+                    (first_name, last_name, 
+                    role_list_id) VALUES 
+                    ('${empName}', 
+                    '${empLast}', 
+                    '${roleId}')`, function (err, results) {
+              // Check if there was an error while executing the query
+              if (err) {
+                  console.log(err); // If there's an error, log it to the console
+              } else {
+                  // If successful, view all employees using the viewAllEmployees() function
+                  viewAllEmployees();
+              }
+              // After inserting the employee (whether successful or not), call the startApp() function to continue the application flow
+              startApp();
+          });
+      });
+  });
+}
+
+// Function to update an employee's role in the database
+function updateEmployee() {
+  // Display a prompt to get the employee's ID and the new role ID
+  inquirer.prompt([
+      {
+          type: "input",
+          name: "employeeId",
+          message: "Enter the ID of the employee you want to update:"
+      },
+      {
+          type: "list",
+          name: "roleId",
+          message: "Select the new role for the employee:",
+          choices: roleChoices // Assuming that roleChoices is defined and contains the role options from the database
+      }
+  ]).then((inquirerResponse) => {
+      const { employeeId, roleId } = inquirerResponse;
+      // Update the employee in the database
+      db.query(
+          `UPDATE employee_list
+          SET role_list_id = ?
+          WHERE id = ?`,
+          [roleId, employeeId],
+          function (err, results) {
+              if (err) {
+                  console.log(err);
+              } else {
+                  console.log(`Employee with ID ${employeeId} has been updated with the new role ID ${roleId}.`);
+              }
+              startApp();
+          }
+      );
+  });
+}
+
+// Function to quit the application
+function quit() {
+  console.log("Quitting the application!");
+  process.exit();
+}
 
 
 
