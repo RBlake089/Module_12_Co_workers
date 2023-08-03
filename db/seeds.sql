@@ -1,30 +1,30 @@
 -- Insert data into the department_list table
 INSERT INTO department_list (dept_name)
 VALUES
-    ("Executive"),       -- Department ID 1
-    ("Management"),      -- Department ID 2
-    ("Administrative"),  -- Department ID 3
-    ("Security"),        -- Department ID 4
-    ("Medical");         -- Department ID 5
+    ("Sales"),            -- Department ID 1
+    ("Marketing"),        -- Department ID 2
+    ("Human Resources"),  -- Department ID 3
+    ("Finance"),          -- Department ID 4
+    ("Operations");       -- Department ID 5
 
 -- Insert data into the role_list table with different values
 INSERT INTO role_list (title, salary, department_list_id)
 VALUES
-    ("CEO", 10000, 1),           -- Role ID 1
-    ("Manager", 5000, 2),        -- Role ID 2
-    ("Supervisor", 4000, 2),     -- Role ID 3
-    ("Lead Engineer", 4500, 3),  -- Role ID 4
-    ("Senior Engineer", 4200, 3),-- Role ID 5
-    ("Therapist", 3500, 4),      -- Role ID 6
-    ("Nurse", 2800, 2);          -- Role ID 7
+    ("Sales Manager", 8000, 1),           -- Role ID 1
+    ("Marketing Specialist", 6000, 2),    -- Role ID 2
+    ("HR Coordinator", 4000, 3),          -- Role ID 3
+    ("Financial Analyst", 5000, 4),       -- Role ID 4
+    ("Operations Supervisor", 4500, 5),   -- Role ID 5
+    ("Sales Representative", 3500, 1),    -- Role ID 6
+    ("Marketing Assistant", 3000, 2);     -- Role ID 7
 
 -- Insert data into the employee_list table
 INSERT INTO employee_list (first_name, last_name, role_list_id, manager_id)
 VALUES
-    ("Jean-Luc", "Picard", 4, 1),    -- Employee ID 1
-    ("William", "Riker", 4, 2),      -- Employee ID 2
-    ("Worf", "worst", 4, 1),         -- Employee ID 3
-    ("Data", "dood", 2, NULL),       -- Employee ID 4
-    ("Geordi", "La Forge", 2, 3),    -- Employee ID 5
-    ("Deanna", "Troi", 1, 6),        -- Employee ID 6
-    ("Beverly", "Crusher", 3, NULL); -- Employee ID 7
+    ("John", "Doe", 1, NULL),          -- Employee ID 1
+    ("Jane", "Smith", 2, 1),           -- Employee ID 2
+    ("Michael", "Johnson", 3, 1),      -- Employee ID 3
+    ("Emily", "Williams", 4, 2),       -- Employee ID 4
+    ("Robert", "Jones", 5, 3),         -- Employee ID 5
+    ("Olivia", "Brown", 6, 4),         -- Employee ID 6
+    ("William", "Davis", 7, 5);        -- Employee ID 7
